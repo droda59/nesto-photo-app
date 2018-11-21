@@ -172,9 +172,6 @@ class Layout extends React.Component {
             <Typography variant="h4" gutterBottom component="h2">
               Orders
             </Typography>
-            <Typography component="div" className={classes.chartContainer}>
-              <SimpleLineChart />
-            </Typography>
             <Typography variant="h4" gutterBottom component="h2">
               Products
             </Typography>

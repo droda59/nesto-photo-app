@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Route, Switch } from 'react-router';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import Home from './login/LoginPage';
-import AlbumPage from './albums/AlbumPage';
-import PostPage from './posts/PostPage';
 import NotFound from './shared/NotFound';
-import { ROUTE_HOME } from './constants/routes';
+import AlbumListContainer from './albums/AlbumListContainer';
+import AlbumContainer from './albums/AlbumContainer';
+import PostPage from './posts/PostPage';
+import { ROUTE_HOME, ROUTE_ALBUMS, ROUTE_POSTS } from './constants/routes';
 import './App.css';
 
-export default class App extends Component {
+const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true
+    }
+});
+
+class App extends Component {
     render() {
         return (
-            <BrowserRouter>
-                <Switch>
-                    <Route path='/' exact component={Home} />
-                    <Route path='/albums' component={AlbumPage} />
-                    <Route path='/posts' component={PostPage} />
-                    <Route component={NotFound} />
-                </Switch>
-            </BrowserRouter>
+            <MuiThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <Switch>
+                        <Route path={ROUTE_HOME} exact component={Home} />
+
+                        <Route path={ROUTE_ALBUMS} component={AlbumListContainer} />
+                        <Route path={`${ROUTE_ALBUMS}/:albumId`} component={AlbumContainer} />
+
+                        <Route path={ROUTE_POSTS} component={PostPage} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </BrowserRouter>
+            </MuiThemeProvider>
         );
     }
 }
