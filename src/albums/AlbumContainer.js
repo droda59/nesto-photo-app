@@ -7,13 +7,16 @@ function mapStateToProps(state) {
     const { albumReducer } = state;
     return {
         album: albumReducer.album,
-        isFetching: albumReducer.isFetching,
+        photos: albumReducer.photos,
+        isFetchingAlbum: albumReducer.isFetchingAlbum,
+        isFetchingPhotos: albumReducer.isFetchingPhotos,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchAlbum: albumOperations.fetchAlbum,
+        fetchAlbumPhotos: albumOperations.fetchAlbumPhotos,
     }, dispatch);
 }
 

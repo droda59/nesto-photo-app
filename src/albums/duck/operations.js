@@ -14,7 +14,15 @@ const fetchAlbum = (albumId) => (dispatch) => {
         .then(album => dispatch(actions.receiveAlbum(album)));
 };
 
+const fetchAlbumPhotos = (albumId) => (dispatch) => {
+    dispatch(actions.requestAlbumPhotos(albumId));
+    return fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`)
+        .then(res => res.json(), err => dispatch(actions.receiveAlbumPhotosFail(err)))
+        .then(photos => dispatch(actions.receiveAlbumPhotos(photos)));
+};
+
 export default {
     fetchAlbums,
     fetchAlbum,
+    fetchAlbumPhotos,
 };

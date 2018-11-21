@@ -16,7 +16,7 @@ const theme = createMuiTheme({
     }
 });
 
-class App extends Component {
+export default class App extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -24,7 +24,7 @@ class App extends Component {
                     <Switch>
                         <Route path={ROUTE_HOME} exact component={Home} />
 
-                        <Route path={ROUTE_ALBUMS} component={AlbumListContainer} />
+                        <Route path={ROUTE_ALBUMS} exact component={AlbumListContainer} />
                         <Route path={`${ROUTE_ALBUMS}/:albumId`} component={AlbumContainer} />
 
                         <Route path={ROUTE_POSTS} component={PostPage} />

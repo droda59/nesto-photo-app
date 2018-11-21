@@ -1,5 +1,6 @@
 import types from './types';
 
+/* ALBUMS LIST */
 const requestAlbums = () => ({
     type: types.GET_ALBUMS,
 });
@@ -14,6 +15,7 @@ const receiveAlbumsFail = error => ({
     error
 });
 
+/* ALBUM DETAILS */
 const requestAlbum = () => ({
     type: types.GET_ALBUM,
 });
@@ -28,6 +30,21 @@ const receiveAlbumFail = error => ({
     error
 });
 
+/* ALBUM PHOTOS */
+const requestAlbumPhotos = () => ({
+    type: types.GET_PHOTOS,
+});
+
+const receiveAlbumPhotos = photos => ({
+    type: types.GET_PHOTOS_SUCCESS,
+    photos
+});
+
+const receiveAlbumPhotosFail = error => ({
+    type: types.GET_PHOTOS_FAILURE,
+    error
+});
+
 export default {
     requestAlbums,
     receiveAlbums,
@@ -36,4 +53,8 @@ export default {
     requestAlbum,
     receiveAlbum,
     receiveAlbumFail,
+    
+    requestAlbumPhotos,
+    receiveAlbumPhotos,
+    receiveAlbumPhotosFail,
 };

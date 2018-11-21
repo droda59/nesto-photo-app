@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import AlbumCard from './AlbumCard';
+import PhotoCard from './PhotoCard';
 
 const styles = theme => ({
     heroUnit: {
@@ -34,15 +34,19 @@ const styles = theme => ({
 class Album extends React.Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        album: PropTypes.array.isRequired,
-        isFetching: PropTypes.bool.isRequired,
+        album: PropTypes.object.isRequired,
+        photos: PropTypes.array.isRequired,
+        isFetchingAlbum: PropTypes.bool.isRequired,
+        isFetchingPhotos: PropTypes.bool.isRequired,
         fetchAlbum: PropTypes.func.isRequired,
+        fetchAlbumPhotos: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
         const albumId = this.props.match.params.albumId;
 
         this.props.fetchAlbum(albumId);
+        this.props.fetchAlbumPhotos(albumId);
     }
 
     render() {
@@ -52,13 +56,15 @@ class Album extends React.Component {
                 <div className={this.props.classes.heroUnit}>
                     <div className={this.props.classes.heroContent}>
                         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                            Album layout
+                            {this.props.album.title}
                         </Typography>
                     </div>
                 </div>
                 <div className={classNames(this.props.classes.layout, this.props.classes.cardGrid)}>
                     <Grid container spacing={40}>
-                        <AlbumCard album={this.props.album}></AlbumCard>
+                        {this.props.photos.map(photo => (
+                            <PhotoCard photo={photo} key={photo.id}></PhotoCard>
+                        ))}
                     </Grid>
                 </div>
             </React.Fragment>
