@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Album from './Album';
+import AlbumCard from './AlbumCard';
 
 const styles = theme => ({
     heroUnit: {
@@ -31,9 +31,18 @@ const styles = theme => ({
     },
 });
 
-const albums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+class AlbumList extends React.Component {
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+        albums: PropTypes.array.isRequired,
+        isFetching: PropTypes.bool.isRequired,
+        fetchAlbums: PropTypes.func.isRequired,
+    };
 
-class AlbumPage extends React.Component {
+    componentDidMount() {
+        this.props.fetchAlbums();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -47,8 +56,8 @@ class AlbumPage extends React.Component {
                 </div>
                 <div className={classNames(this.props.classes.layout, this.props.classes.cardGrid)}>
                     <Grid container spacing={40}>
-                        {albums.map(album => (
-                            <Album key={album} album={album}></Album>
+                        {this.props.albums.map(album => (
+                            <AlbumCard key={album.id} album={album}></AlbumCard>
                         ))}
                     </Grid>
                 </div>
@@ -57,9 +66,4 @@ class AlbumPage extends React.Component {
     }
 }
 
-
-AlbumPage.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(AlbumPage);
+export default withStyles(styles)(AlbumList);

@@ -1,0 +1,17 @@
+const GET_ALBUMS = 'albums/GET';
+const GET_ALBUMS_SUCCESS = 'albums/GET/SUCCESS';
+const GET_ALBUMS_FAILURE = 'albums/GET/FAILURE';
+
+const GET_ALBUM = 'album/GET';
+const GET_ALBUM_SUCCESS = 'album/GET/SUCCESS';
+const GET_ALBUM_FAILURE = 'album/GET/FAILURE';
+
+export default {
+    GET_ALBUMS,
+    GET_ALBUMS_SUCCESS,
+    GET_ALBUMS_FAILURE,
+
+    GET_ALBUM,
+    GET_ALBUM_SUCCESS,
+    GET_ALBUM_FAILURE,
+};
