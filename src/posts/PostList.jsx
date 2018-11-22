@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import CommentEntry from './CommentEntry';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import FeaturedPostEntry from './FeaturedPostEntry';
+import PostEntry from './PostEntry';
 
 const styles = theme => ({
     heroUnit: {
@@ -26,27 +27,25 @@ const styles = theme => ({
         marginRight: 'auto',
         },
     },
+    mainGrid: {
+        marginTop: theme.spacing.unit * 3,
+    },
     cardGrid: {
         marginTop: theme.spacing.unit * 3,
     },
 });
 
-class Post extends React.Component {
+class PostPage extends React.Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        post: PropTypes.object.isRequired,
-        comments: PropTypes.array.isRequired,
-        isFetchingPost: PropTypes.bool.isRequired,
-        isFetchingComments: PropTypes.bool.isRequired,
-        fetchPost: PropTypes.func.isRequired,
-        fetchPostComments: PropTypes.func.isRequired,
+        posts: PropTypes.array.isRequired,
+        featuredPosts: PropTypes.array.isRequired,
+        isFetching: PropTypes.bool.isRequired,
+        fetchPosts: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
-        const postId = this.props.match.params.postId;
-
-        this.props.fetchPost(postId);
-        this.props.fetchPostComments(postId);
+        this.props.fetchPosts();
     }
 
     render() {
@@ -56,23 +55,26 @@ class Post extends React.Component {
                 <div className={this.props.classes.heroUnit}>
                     <div className={this.props.classes.heroContent}>
                         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                            {this.props.post.title}
+                            Dat blog tho
                         </Typography>
                     </div>
                 </div>
-                <div className={classNames(this.props.classes.layout, this.props.classes.cardGrid)}>
+                <div className={this.props.classes.layout}>
                     <Grid container spacing={40} className={this.props.classes.cardGrid}>
-                        <Grid item xs={12} md={10}>
-                            <Typography variant='body2'>
-                                {this.props.post.body}
-                            </Typography>
-                        </Grid>
+                        {this.props.featuredPosts.map(post => (
+                            <Grid item key={post.id} xs={12} md={6}>
+                                <FeaturedPostEntry post={post}></FeaturedPostEntry>
+                            </Grid>
+                        ))}
                     </Grid>
-
-                    <Grid container spacing={40} className={this.props.classes.cardGrid}>
+                    
+                    <Grid container spacing={40} className={this.props.classes.mainGrid}>
                         <Grid item xs={12} md={12}>
-                            {this.props.comments.map(comment => (
-                                <CommentEntry key={comment.id} comment={comment}></CommentEntry>
+                            <Divider />
+                            {this.props.posts.map(post => (
+                                <Grid key={post.id} item xs={12} md={8}>
+                                    <PostEntry post={post}></PostEntry>
+                                </Grid>
                             ))}
                         </Grid>
                     </Grid>
@@ -82,4 +84,8 @@ class Post extends React.Component {
     }
 }
 
-export default withStyles(styles)(Post);
+PostPage.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PostPage);

@@ -1,0 +1,25 @@
+const GET_POSTS = 'posts/GET';
+const GET_POSTS_SUCCESS = 'posts/GET/SUCCESS';
+const GET_POSTS_FAILURE = 'posts/GET/FAILURE';
+
+const GET_POST = 'post/GET';
+const GET_POST_SUCCESS = 'post/GET/SUCCESS';
+const GET_POST_FAILURE = 'post/GET/FAILURE';
+
+const GET_COMMENTS = 'post/comments/GET';
+const GET_COMMENTS_SUCCESS = 'post/comments/GET/SUCCESS';
+const GET_COMMENTS_FAILURE = 'post/comments/GET/FAILURE';
+
+export default {
+    GET_POSTS,
+    GET_POSTS_SUCCESS,
+    GET_POSTS_FAILURE,
+
+    GET_POST,
+    GET_POST_SUCCESS,
+    GET_POST_FAILURE,
+
+    GET_COMMENTS,
+    GET_COMMENTS_SUCCESS,
+    GET_COMMENTS_FAILURE,
+};

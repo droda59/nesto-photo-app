@@ -6,7 +6,8 @@ import Home from './login/LoginPage';
 import NotFound from './shared/NotFound';
 import AlbumListContainer from './albums/AlbumListContainer';
 import AlbumContainer from './albums/AlbumContainer';
-import PostPage from './posts/PostPage';
+import PostListContainer from './posts/PostListContainer.js';
+import PostContainer from './posts/PostContainer.js';
 import { ROUTE_HOME, ROUTE_ALBUMS, ROUTE_POSTS } from './constants/routes';
 import './App.css';
 
@@ -27,7 +28,9 @@ export default class App extends Component {
                         <Route path={ROUTE_ALBUMS} exact component={AlbumListContainer} />
                         <Route path={`${ROUTE_ALBUMS}/:albumId`} component={AlbumContainer} />
 
-                        <Route path={ROUTE_POSTS} component={PostPage} />
+                        <Route path={ROUTE_POSTS} exact component={PostListContainer} />
+                        <Route path={`${ROUTE_POSTS}/:postId`} component={PostContainer} />
+                        
                         <Route component={NotFound} />
                     </Switch>
                 </BrowserRouter>
