@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -51,7 +50,6 @@ class PostPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <CssBaseline />
                 <div className={this.props.classes.heroUnit}>
                     <div className={this.props.classes.heroContent}>
                         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
