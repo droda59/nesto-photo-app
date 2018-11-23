@@ -17,13 +17,17 @@ const styles = theme => ({
     },
 });
 
-const HomePage = props => (
-    <div className={props.classes.layout}>
-        <Typography component="h1" variant="h5">
-            Welcome
-        </Typography>
-    </div>
-);
+const HomePage = props => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    return (
+        <div className={props.classes.layout}>
+            <Typography component="h1" variant="h5">
+                Welcome, {user.username}
+            </Typography>
+        </div>
+    )
+};
 
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
