@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
 import CommentEntry from './CommentEntry';
 import BackButton from '../shared/BackButton';
 
 const styles = theme => ({
+    progress: {
+        margin: theme.spacing.unit * 2,
+        width: '100%',
+        textAlign: 'center',
+    },
     heroUnit: {
         backgroundColor: theme.palette.background.paper,
     },
@@ -63,6 +70,7 @@ class Post extends React.Component {
                 <div className={classNames(this.props.classes.layout, this.props.classes.cardGrid)}>
                     <Grid container spacing={40} className={this.props.classes.cardGrid}>
                         <Grid item xs={12} md={10}>
+                            {this.props.isFetchingPost && <div className={this.props.classes.progress}><CircularProgress /></div>}
                             <Typography variant='body2'>
                                 {this.props.post.body}
                             </Typography>
@@ -71,6 +79,7 @@ class Post extends React.Component {
 
                     <Grid container spacing={40} className={this.props.classes.cardGrid}>
                         <Grid item xs={12} md={12}>
+                            {this.props.isFetchingComments && <div className={this.props.classes.progress}><CircularProgress /></div>}
                             {this.props.comments.map(comment => (
                                 <CommentEntry key={comment.id} comment={comment}></CommentEntry>
                             ))}
@@ -82,4 +91,4 @@ class Post extends React.Component {
     }
 }
 
-export default withStyles(styles)(Post);
+export default withRouter(withStyles(styles)(Post));

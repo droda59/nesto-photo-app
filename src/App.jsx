@@ -38,23 +38,21 @@ export default class App extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <React.Fragment>
-                    <CssBaseline />
-                    <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
-                        <Switch>
-                            <Route path={ROUTE_HOME} exact render={props => this.navigateOrRedirect(<HomePage {...props} />)} />
-                            <Route path={ROUTE_LOGIN} exact render={props => <LoginPage {...props} />}/>
+                <CssBaseline />
+                <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
+                    <Switch>
+                        <Route path={ROUTE_HOME} exact render={() => this.navigateOrRedirect(<HomePage />)} />
+                        <Route path={ROUTE_LOGIN} exact render={() => <LoginPage />}/>
 
-                            <Route path={ROUTE_ALBUMS} exact render={props => this.navigateOrRedirect(<AlbumListContainer {...props} />)} />
-                            <Route path={`${ROUTE_ALBUMS}/:albumId`} render={props => this.navigateOrRedirect(<AlbumContainer {...props} />)} />
+                        <Route path={ROUTE_ALBUMS} exact render={() => this.navigateOrRedirect(<AlbumListContainer />)} />
+                        <Route path={`${ROUTE_ALBUMS}/:albumId`} render={() => this.navigateOrRedirect(<AlbumContainer />)} />
 
-                            <Route path={ROUTE_POSTS} exact render={props => this.navigateOrRedirect(<PostListContainer {...props} />)} />
-                            <Route path={`${ROUTE_POSTS}/:postId`} render={props => this.navigateOrRedirect(<PostContainer {...props} />)} />
-                            
-                            <Route render={() => <Layout><NotFound /></Layout>}/>
-                        </Switch>
-                    </BrowserRouter>
-                </React.Fragment>
+                        <Route path={ROUTE_POSTS} exact render={() => this.navigateOrRedirect(<PostListContainer />)} />
+                        <Route path={`${ROUTE_POSTS}/:postId`} render={() => this.navigateOrRedirect(<PostContainer />)} />
+                        
+                        <Route render={() => <Layout><NotFound /></Layout>}/>
+                    </Switch>
+                </BrowserRouter>
             </MuiThemeProvider>
         );
     }

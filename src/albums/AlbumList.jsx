@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import AlbumCard from './AlbumCard';
 
 const styles = theme => ({
+    progress: {
+        margin: theme.spacing.unit * 2,
+        width: '100%',
+        textAlign: 'center',
+    },
     heroUnit: {
         backgroundColor: theme.palette.background.paper,
     },
@@ -54,6 +60,7 @@ class AlbumList extends React.Component {
                 </div>
                 <div className={classNames(this.props.classes.layout, this.props.classes.cardGrid)}>
                     <Grid container spacing={40}>
+                        {this.props.isFetching && <div className={this.props.classes.progress}><CircularProgress /></div>}
                         {this.props.albums.map(album => (
                             <AlbumCard key={album.id} album={album}></AlbumCard>
                         ))}

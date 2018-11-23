@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
 import PhotoCard from './PhotoCard';
 import BackButton from '../shared/BackButton';
 
 const styles = theme => ({
+    progress: {
+        margin: theme.spacing.unit * 2,
+        width: '100%',
+        textAlign: 'center',
+    },
     heroUnit: {
         backgroundColor: theme.palette.background.paper,
     },
@@ -54,6 +61,7 @@ class Album extends React.Component {
             <React.Fragment>
                 <div className={this.props.classes.heroUnit}>
                     <div className={this.props.classes.heroContent}>
+                        {this.props.isFetchingAlbum && <div className={this.props.classes.progress}><CircularProgress /></div>}
                         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                             {this.props.album.title}
                         </Typography>
@@ -62,6 +70,7 @@ class Album extends React.Component {
                 <BackButton></BackButton>
                 <div className={classNames(this.props.classes.layout, this.props.classes.cardGrid)}>
                     <Grid container spacing={40}>
+                        {this.props.isFetchingPhotos && <div className={this.props.classes.progress}><CircularProgress /></div>}
                         {this.props.photos.map(photo => (
                             <PhotoCard photo={photo} key={photo.id}></PhotoCard>
                         ))}
@@ -72,4 +81,4 @@ class Album extends React.Component {
     }
 }
 
-export default withStyles(styles)(Album);
+export default withRouter(withStyles(styles)(Album));

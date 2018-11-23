@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import FeaturedPostEntry from './FeaturedPostEntry';
 import PostEntry from './PostEntry';
 
 const styles = theme => ({
+    progress: {
+        margin: theme.spacing.unit * 2,
+        width: '100%',
+        textAlign: 'center',
+    },
     heroUnit: {
         backgroundColor: theme.palette.background.paper,
     },
@@ -57,6 +63,7 @@ class PostPage extends React.Component {
                         </Typography>
                     </div>
                 </div>
+                {this.props.isFetching && <div className={this.props.classes.progress}><CircularProgress /></div>}
                 <div className={this.props.classes.layout}>
                     <Grid container spacing={40} className={this.props.classes.cardGrid}>
                         {this.props.featuredPosts.map(post => (
