@@ -1,6 +1,6 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router";
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,9 +11,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import PhotoAlbum from '@material-ui/icons/PhotoAlbum';
-import { ROUTE_ALBUMS, ROUTE_POSTS } from './constants/routes';
+import Eject from '@material-ui/icons/Eject';
+import { ROUTE_HOME, ROUTE_ALBUMS, ROUTE_POSTS } from './constants/routes';
 
 const drawerWidth = 240;
 
@@ -43,6 +45,15 @@ class Layout extends React.Component {
         open: true,
     };
 
+    isUserLoggedIn() {
+        return !!localStorage.getItem('user');
+    }
+
+    logout = () => {
+        localStorage.removeItem('user');
+        this.props.history.push(ROUTE_HOME);
+    }
+
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -54,13 +65,14 @@ class Layout extends React.Component {
     render() {
         const renderAlbumsLink = itemProps => <Link to={ROUTE_ALBUMS} {...itemProps} />;
         const renderPostsLink = itemProps => <Link to={ROUTE_POSTS} {...itemProps} />;
+        const renderLogOut = itemProps => <Button onClick={this.logout} {...itemProps} />;
 
         return (
             <div className={this.props.classes.root}>
                 <AppBar position="fixed" className={this.props.classes.appBar}>
                     <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        Clipped drawer
+                        Nesto photo app
                     </Typography>
                     </Toolbar>
                 </AppBar>
@@ -79,6 +91,12 @@ class Layout extends React.Component {
                             <ListItemIcon><LibraryBooks /></ListItemIcon>
                             <ListItemText primary='Posts' />
                         </ListItem>
+                        {this.isUserLoggedIn() && 
+                            <ListItem button key='Logout' component={renderLogOut}>
+                                <ListItemIcon><Eject /></ListItemIcon>
+                                <ListItemText primary='Logout' />
+                            </ListItem>
+                        }
                     </List>
                 </Drawer>
                 <main className={this.props.classes.content}>
@@ -94,4 +112,4 @@ Layout.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Layout);
+export default withRouter(withStyles(styles)(Layout));

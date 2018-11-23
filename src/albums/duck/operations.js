@@ -2,7 +2,8 @@ import actions from './actions';
 
 const fetchAlbums = () => (dispatch) => {
     dispatch(actions.requestAlbums());
-    return fetch('https://jsonplaceholder.typicode.com/albums')
+    const user = JSON.parse(localStorage.getItem('user'));
+    return fetch(`https://jsonplaceholder.typicode.com/albums?userId=${user.id}`)
         .then(res => res.json(), err => dispatch(actions.receiveAlbumsFail(err)))
         .then(albums => dispatch(actions.receiveAlbums(albums)));
 };

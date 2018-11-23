@@ -2,7 +2,8 @@ import actions from './actions';
 
 const fetchPosts = () => (dispatch) => {
     dispatch(actions.requestPosts());
-    return fetch('https://jsonplaceholder.typicode.com/posts')
+    const user = JSON.parse(localStorage.getItem('user'));
+    return fetch(`https://jsonplaceholder.typicode.com/posts?userId=${user.id}`)
         .then(res => res.json(), err => dispatch(actions.receivePostsFail(err)))
         .then(posts => dispatch(actions.receivePosts(posts)));
 };
