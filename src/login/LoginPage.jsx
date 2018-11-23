@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -138,7 +139,7 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default withStyles(styles)(connect(
+export default withRouter(withStyles(styles)(connect(
     mapStateToProps,
     mapDispatchToProps
-)(LoginPage));
+)(LoginPage)));
